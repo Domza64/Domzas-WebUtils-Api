@@ -2,18 +2,27 @@ package xyz.domza.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 @Configuration
 public class SecurityConfig {
 
+    // TODO - Implement JWT tokens or something similar for auth
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        System.out.println(passwordEncoder().encode("Lozinka332zaAdmina"));
         http
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
@@ -24,8 +33,12 @@ public class SecurityConfig {
                     config.setExposedHeaders(Collections.singletonList("X-Filename"));
                     return config;
                 }))
+                .httpBasic(Customizer.withDefaults())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/domza/submitGuestBookComment", "/domza/updateDiaryArticle", "/domza/deleteArticle/**")) // TODO - decide what to do with csrf for /updateDiaryArticle
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/getVideo").permitAll());
+                        .requestMatchers("/domza/updateDiaryArticle", "/domza/deleteArticle/**").hasRole("ADMIN"))
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/getVideo", "/domza/guestBookComments", "/domza/submitGuestBookComment", "/domza/diaryArticles").permitAll());
         return http.build();
     }
 }
