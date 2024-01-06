@@ -20,6 +20,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    // TODO - Separate sec config for converter, webspace, qrGen...
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -37,7 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/domza/updateDiaryArticle", "/domza/deleteArticle/**").hasRole("ADMIN"))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/converter/getVideo", "/domza/guestBookComments", "/domza/submitGuestBookComment", "/domza/diaryArticles").permitAll());
+                        .requestMatchers("/converter/getVideo", "/domza/guestBookComments", "/domza/submitGuestBookComment", "/domza/diaryArticles", "/qrGen/getQRCode").permitAll());
         return http.build();
     }
 }
