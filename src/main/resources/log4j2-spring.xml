@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        </Console>
+
+        <!-- File Appender for Better Converter -->
+        <File name="BETTER_CONVERTER_FILE" fileName="${sys:user.home}/logs/better-converter.log">
+            <PatternLayout pattern="[%-5level] %d{dd-MM-yyyy HH:mm:ss} %c{1} - %msg%n"/>
+        </File>
+
+        <!-- File Appender for Domzas Webspace -->
+        <File name="DOMZAS_WEBSPACE_FILE" fileName="${sys:user.home}/logs/domzas-webspace.log">
+            <PatternLayout pattern="[%-5level] %d{dd-MM-yyyy HH:mm:ss} %c{1} - %msg%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger Configuration -->
+        <Root level="info">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+
+        <!-- Loggers for Better Converter -->
+        <Logger name="xyz.domza.utils.ConvertUtils" level="debug" additivity="false">
+            <AppenderRef ref="BETTER_CONVERTER_FILE"/>
+        </Logger>
+        <Logger name="xyz.domza.utils.DownloadUtils" level="debug" additivity="false">
+            <AppenderRef ref="BETTER_CONVERTER_FILE"/>
+        </Logger>
+        <Logger name="xyz.domza.controller.ConverterController" level="debug" additivity="false">
+            <AppenderRef ref="BETTER_CONVERTER_FILE"/>
+        </Logger>
+
+        <!-- Loggers for Domzas Webspace -->
+        <Logger name="xyz.domza.controller.DomzasWebspaceController" level="debug" additivity="false">
+            <AppenderRef ref="DOMZAS_WEBSPACE_FILE"/>
+        </Logger>
+    </Loggers>
+</Configuration>

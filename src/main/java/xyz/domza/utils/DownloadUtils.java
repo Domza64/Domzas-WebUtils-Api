@@ -4,13 +4,16 @@ import com.github.kiulian.downloader.YoutubeDownloader;
 import com.github.kiulian.downloader.downloader.request.RequestVideoFileDownload;
 import com.github.kiulian.downloader.downloader.request.RequestVideoInfo;
 import com.github.kiulian.downloader.model.videos.VideoInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-
+import xyz.domza.exception.VideoNotFoundException;
 import java.io.File;
 import java.nio.file.Path;
 
 public class DownloadUtils {
+    private static final Logger logger = LogManager.getLogger(DownloadUtils.class);
 
     public static Resource getVideoOrSong(String id, String type) {
         // Initialize downloader
@@ -20,6 +23,12 @@ public class DownloadUtils {
         VideoInfo videoInfo = getVideoInfo(downloader, id);
 
         // Get file
+        if (videoInfo == null) {
+            logger.warn("Video with id: '" + id + "' not found.");
+            throw new VideoNotFoundException();
+        }
+
+        logger.info("Found video: " + videoInfo.details().title() + ". Attempting download...");
         File file = downloadFile(type, videoInfo, downloader);
 
         // If audio, convert to mp3

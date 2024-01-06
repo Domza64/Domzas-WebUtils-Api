@@ -22,7 +22,6 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println(passwordEncoder().encode("Lozinka332zaAdmina"));
         http
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
@@ -38,7 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/domza/updateDiaryArticle", "/domza/deleteArticle/**").hasRole("ADMIN"))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/getVideo", "/domza/guestBookComments", "/domza/submitGuestBookComment", "/domza/diaryArticles").permitAll());
+                        .requestMatchers("/converter/getVideo", "/domza/guestBookComments", "/domza/submitGuestBookComment", "/domza/diaryArticles").permitAll());
         return http.build();
     }
 }
