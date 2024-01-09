@@ -29,6 +29,11 @@ public class DomzasWebspaceController {
         return guestBookService.getComments();
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "Yoooooo";
+    }
+
     @PostMapping("/submitGuestBookComment")
     public void submitGuestBookComment(@Valid @RequestBody GuestBookCommentDTO guestBookCommentDTO) {
         guestBookService.save(new GuestBookCommentModel(
