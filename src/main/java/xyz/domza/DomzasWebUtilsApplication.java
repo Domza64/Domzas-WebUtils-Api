@@ -2,20 +2,26 @@ package xyz.domza;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import xyz.domza.utils.ApplicationPropertiesManager;
 
 @SpringBootApplication
 public class DomzasWebUtilsApplication {
 
 	public static void main(String[] args) {
+		boolean configExists = ApplicationPropertiesManager.checkConfig();
 
-		// TODO - Load application.properties from external file
-		/*
-			Check if external config file (application.properties) exits, if not, create it from template
-			in some default location like users home /webspaceConfig...
-			Then and exit application with message to populate required fields and rerun app
+		if (configExists) {
+			// Get config location
+			String homeDirectory = System.getProperty("user.home");
+			String configLocation = "--spring.config.location=file:" + homeDirectory + "/webspace-config/application.properties";
 
-			If file exists add --spring.config.location=file:/path/to/config/ to args
-		*/
-		SpringApplication.run(DomzasWebUtilsApplication.class, args);
+			// Merge the original args with the additional arguments
+			String[] allArgs = new String[args.length + 1];
+			System.arraycopy(args, 0, allArgs, 0, args.length);
+			allArgs[args.length] = configLocation;
+
+			// Run the Spring Boot application with allArgs
+			SpringApplication.run(DomzasWebUtilsApplication.class, allArgs);
+		}
 	}
 }
