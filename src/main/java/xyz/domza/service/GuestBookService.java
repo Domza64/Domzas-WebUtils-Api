@@ -18,6 +18,13 @@ public class GuestBookService {
         return new ArrayList<>(guestBookRepository.findAllBy());
     }
 
+    public List<GuestBookCommentModel> getCommentsAdmin() {
+        Iterable<GuestBookCommentModel> iterable = guestBookRepository.findAll();
+        List<GuestBookCommentModel> list = new ArrayList<>();
+        iterable.forEach(list::add);
+        return list;
+    }
+
     public Optional<GuestBookCommentModel> findById(Integer id) {
         return guestBookRepository.findById(id);
     }

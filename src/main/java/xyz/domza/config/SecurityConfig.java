@@ -36,10 +36,9 @@ public class SecurityConfig {
                 }))
                 .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> httpSecurityOAuth2ResourceServerConfigurer
                         .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)))
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/domza/submitGuestBookComment", "/domza/updateDiaryArticle", "/domza/deleteArticle/**")) // TODO - decide what to do with csrf for /updateDiaryArticle
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/domza/submitGuestBookComment", "/domza/admin/**")) // TODO - decide what to do with csrf for /updateDiaryArticle
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/domza/updateDiaryArticle", "/domza/deleteArticle/**").hasRole("ADMIN"))
-                .authorizeHttpRequests((resuests) -> resuests.requestMatchers("/domza/test").hasRole("ADMIN"))
+                        .requestMatchers("/domza/admin/**").hasRole("ADMIN"))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/converter/getVideo", "/domza/guestBookComments", "/domza/submitGuestBookComment", "/domza/diaryArticles", "/qrGen/getQRCode").permitAll());
         return http.build();

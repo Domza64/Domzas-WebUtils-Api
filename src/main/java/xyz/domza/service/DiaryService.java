@@ -19,7 +19,7 @@ public class DiaryService {
     private DiaryRepository diaryRepository;
 
     public List<DiaryArticleModel> getArticles() {
-        return new ArrayList<>(diaryRepository.findAllBy());
+        return new ArrayList<>(diaryRepository.findAllByOrderByCreatedAtDesc());
     }
 
     public void save(DiaryArticleModel diaryArticleModel) {

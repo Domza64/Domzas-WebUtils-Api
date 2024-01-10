@@ -15,6 +15,11 @@
         <File name="DOMZAS_WEBSPACE_FILE" fileName="${sys:user.home}/logs/domzas-webspace.log">
             <PatternLayout pattern="[%-5level] %d{dd-MM-yyyy HH:mm:ss} %c{1} - %msg%n"/>
         </File>
+
+        <!-- File Appender for Qr Generator -->
+        <File name="QR_GENERATOR_FILE" fileName="${sys:user.home}/logs/qr-generator.log">
+            <PatternLayout pattern="[%-5level] %d{dd-MM-yyyy HH:mm:ss} %c{1} - %msg%n"/>
+        </File>
     </Appenders>
 
     <Loggers>
@@ -37,6 +42,11 @@
         <!-- Loggers for Domzas Webspace -->
         <Logger name="xyz.domza.controller.DomzasWebspaceController" level="debug" additivity="false">
             <AppenderRef ref="DOMZAS_WEBSPACE_FILE"/>
+        </Logger>
+
+        <!-- Loggers for Qr Generator -->
+        <Logger name="xyz.domza.controller.QrGeneratorController" level="debug" additivity="false">
+            <AppenderRef ref="QR_GENERATOR_FILE"/>
         </Logger>
     </Loggers>
 </Configuration>

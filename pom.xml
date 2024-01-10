@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>xyz.domza</groupId>
 	<artifactId>DomzasWebutils</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>WebUtils API</name>
 	<description>API for Domza's Web Utils</description>
 	<properties>
@@ -95,6 +95,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

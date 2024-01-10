@@ -6,5 +6,5 @@ import xyz.domza.model.DiaryArticleModel;
 import java.util.List;
 
 public interface DiaryRepository extends CrudRepository<DiaryArticleModel, Integer> {
-    List<DiaryArticleModel> findAllBy();
+    List<DiaryArticleModel> findAllByOrderByCreatedAtDesc();
 }
