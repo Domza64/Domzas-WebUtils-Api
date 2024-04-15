@@ -25,7 +25,7 @@ public class GuestBookService {
         return list;
     }
 
-    public Optional<GuestBookCommentModel> findById(Integer id) {
+    public Optional<GuestBookCommentModel> findById(String id) {
         return guestBookRepository.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class GuestBookService {
         guestBookRepository.save(userCommentModel);
     }
 
-    public void delete(int id) {
+    public void delete(String id) {
         guestBookRepository.deleteById(id);
     }
 }

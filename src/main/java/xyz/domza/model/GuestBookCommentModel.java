@@ -1,15 +1,16 @@
 package xyz.domza.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "user_comments")
+@Document("user_comment")
 public class GuestBookCommentModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Indexed(unique = true)
+    private String id;
 
     private String username;
     private String message;
@@ -25,7 +26,7 @@ public class GuestBookCommentModel {
         this.date = date;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

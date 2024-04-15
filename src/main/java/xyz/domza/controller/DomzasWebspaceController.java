@@ -27,6 +27,8 @@ public class DomzasWebspaceController {
     @Autowired
     private DiaryService diaryService;
 
+    // ----------------------------------- GuestBook APIs ----------------------------------- //
+
     @GetMapping("/guestBookComments")
     public List<GuestBookCommentDTO> guestBookComments() {
         return guestBookService.getComments();
@@ -38,7 +40,7 @@ public class DomzasWebspaceController {
     }
 
     @DeleteMapping("/admin/guestBookCommentsAdmin/{id}")
-    public void deleteGuestBookComment(@PathVariable int id) {
+    public void deleteGuestBookComment(@PathVariable String id) {
         guestBookService.delete(id);
     }
 
@@ -56,6 +58,8 @@ public class DomzasWebspaceController {
         return ResponseEntity.created(URI.create("/submitGuestBookComment")).build();
     }
 
+    // ----------------------------------- Diary APIs ----------------------------------- //
+
     @GetMapping("/diaryArticles")
     public List<DiaryArticleModel> getDiaryArticles() {
         return new ArrayList<>(diaryService.getArticles());
@@ -71,8 +75,8 @@ public class DomzasWebspaceController {
         diaryService.save(diaryArticleModel);
     }
 
-    @DeleteMapping("/admin/deleteArticle/{id}")
-    public void deleteArticle(@PathVariable int id) {
+    @DeleteMapping("/admin/diaryArticlesAdmin/{id}")
+    public void deleteDiaryArticle(@PathVariable String id) {
         diaryService.delete(id);
     }
 }

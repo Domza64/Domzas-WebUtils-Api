@@ -1,16 +1,14 @@
 package xyz.domza.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
-@Entity
-@Table(name = "diary_articles")
+@Document("diary_article")
 public class DiaryArticleModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Indexed(unique = true)
+    private String id;
 
     private String title;
     private String text;
@@ -24,7 +22,7 @@ public class DiaryArticleModel {
        this.text = text;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

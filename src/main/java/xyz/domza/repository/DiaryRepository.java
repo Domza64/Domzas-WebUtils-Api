@@ -1,10 +1,10 @@
 package xyz.domza.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import xyz.domza.model.DiaryArticleModel;
 
 import java.util.List;
 
-public interface DiaryRepository extends CrudRepository<DiaryArticleModel, Integer> {
-    List<DiaryArticleModel> findAllByOrderByCreatedAtDesc();
+public interface DiaryRepository extends MongoRepository<DiaryArticleModel, String> {
+
 }
